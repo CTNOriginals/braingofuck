@@ -13,15 +13,16 @@ func main() {
 	var startTime = time.Now()
 	fmt.Printf("\n\n---- BrainGoFuck START %s ----\n", startTime.Format(time.TimeOnly))
 	defer func() {
-		fmt.Printf("---- BrainGoFuck END %s (%f) ----\n", startTime.Format(time.TimeOnly), time.Since(startTime).Seconds())
+		fmt.Printf("\n---- BrainGoFuck END %s (%f) ----\n", startTime.Format(time.TimeOnly), time.Since(startTime).Seconds())
 	}()
 
-	var content = ctnfile.GetFileRunes("./brainfuck/proto.bf")
+	// var content = ctnfile.GetFileRunes("./brainfuck/proto.bf")
+	var content = ctnfile.GetFileRunes("./brainfuck/hello.bf")
 	var tokens = tokenizer.Tokenize(content)
 
-	for i, token := range tokens {
-		fmt.Printf("%d: %s %d:%d\n", i, tokenizer.TokenTypeValues[token.Typ], token.Line, token.Col)
-	}
+	// for i, token := range tokens {
+	// 	fmt.Printf("%d: %s %d:%d\n", i, tokenizer.TokenTypeValues[token.Typ], token.Line, token.Col)
+	// }
 
-	compiler.Compile(tokens)
+	compiler.Compile(tokens, 256)
 }

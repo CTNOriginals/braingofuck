@@ -7,8 +7,14 @@ type Ram struct {
 }
 
 func CreateRam(size int) *Ram {
+	var mem = make([]*Cell, size)
+
+	for i := range size {
+		mem[i] = new(Cell)
+	}
+
 	return &Ram{
-		Mem:     make([]*Cell, size),
+		Mem:     mem,
 		Address: 0,
 		size:    size,
 	}

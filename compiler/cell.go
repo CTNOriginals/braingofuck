@@ -2,12 +2,10 @@ package compiler
 
 type Cell byte
 
-func (this *Cell) Inc() *Cell {
+func (this *Cell) Inc() {
 	*this += 1
-	return this
 }
 
-func (this *Cell) Dec() *Cell {
-	*this += 1
-	return this
+func (this *Cell) Dec() {
+	*this -= 1
 }
