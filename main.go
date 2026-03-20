@@ -20,9 +20,5 @@ func main() {
 	var content = ctnfile.GetFileRunes("./brainfuck/hello.bf")
 	var tokens = tokenizer.Tokenize(content)
 
-	// for i, token := range tokens {
-	// 	fmt.Printf("%d: %s %d:%d\n", i, tokenizer.TokenTypeValues[token.Typ], token.Line, token.Col)
-	// }
-
 	compiler.Compile(tokens, 256)
 }
