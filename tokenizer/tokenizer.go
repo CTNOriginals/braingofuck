@@ -17,24 +17,24 @@ const (
 	DEC // -
 	OUT // .
 	INP // ,
-	SRT // [
+	BEG // [
 	END // ]
 )
 
-var TokenTypeValues = []string{"NUL", "ADV", "BAC", "INC", "DEC", "OUT", "INP", "SRT", "END"}
+var TokenTypeValues = []string{"NUL", "ADV", "BAC", "INC", "DEC", "OUT", "INP", "BEG", "END"}
 
-var charToken = map[byte]TokenType{
+var charToken = map[rune]TokenType{
 	'>': ADV,
 	'<': BAC,
 	'+': INC,
 	'-': DEC,
 	'.': OUT,
 	',': INP,
-	'[': SRT,
+	'[': BEG,
 	']': END,
 }
 
-func Tokenize(content []byte) TokenList {
+func Tokenize(content []rune) TokenList {
 	var list = make(TokenList, 0)
 
 	var line = 1
