@@ -1,2 +1,8 @@
 github.com/CTNOriginals/CTNGoUtils/v2 v2.4.0 h1:BPXOQN8oa4ZgseASsmg+8npMep2d4ofsokvnvkaadMA=
 github.com/CTNOriginals/CTNGoUtils/v2 v2.4.0/go.mod h1:VAJt/7jTpvhkr78N8HmvC7OWBsUxPyV/ItXnPIzLpww=
+github.com/CTNOriginals/ctngoargs v0.0.0-20260321185206-f775cc595734 h1:O+LBEdBGBTj3LaP5uZMbEmXbDrFF8k+ySPAjz1Sloso=
+github.com/CTNOriginals/ctngoargs v0.0.0-20260321185206-f775cc595734/go.mod h1:Zv9E2R4Oy4xoraghl/pt5sSiKUP/pncQ8kQM/8WT10Q=
+github.com/CTNOriginals/ctngoargs v1.0.0 h1:IlqXLB3zb37ouLeJ5CrUyd7Aw0GSmff9EEim2ilVWT0=
+github.com/CTNOriginals/ctngoargs v1.0.0/go.mod h1:Zv9E2R4Oy4xoraghl/pt5sSiKUP/pncQ8kQM/8WT10Q=
+github.com/CTNOriginals/ctngoargs v1.0.1 h1:vN35F70HGPnbWq4MKPjjXvzpeF0VcqJQB5VIllcxO24=
+github.com/CTNOriginals/ctngoargs v1.0.1/go.mod h1:Zv9E2R4Oy4xoraghl/pt5sSiKUP/pncQ8kQM/8WT10Q=

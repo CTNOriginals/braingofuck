@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	ctnfile "github.com/CTNOriginals/CTNGoUtils/v2/file"
 	"github.com/CTNOriginals/braingofuck/compiler"
 	"github.com/CTNOriginals/braingofuck/tokenizer"
 )
+
+var brainfuck = []rune{}
+var input = []rune{}
 
 func main() {
 	var startTime = time.Now()
@@ -16,9 +18,9 @@ func main() {
 		fmt.Printf("\n---- BrainGoFuck END %s (%f) ----\n", startTime.Format(time.TimeOnly), time.Since(startTime).Seconds())
 	}()
 
-	// var content = ctnfile.GetFileRunes("./brainfuck/proto.bf")
-	var content = ctnfile.GetFileRunes("./brainfuck/hello.bf")
-	var tokens = tokenizer.Tokenize(content)
+	parseArgs()
 
-	compiler.Compile(tokens, 256)
+	var tokens = tokenizer.Tokenize(brainfuck)
+
+	compiler.Compile(tokens, 256, input)
 }

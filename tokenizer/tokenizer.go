@@ -23,7 +23,7 @@ const (
 
 var TokenTypeValues = []string{"NUL", "ADV", "BAC", "INC", "DEC", "OUT", "INP", "BEG", "END"}
 
-var charToken = map[rune]TokenType{
+var CharToken = map[rune]TokenType{
 	'>': ADV,
 	'<': BAC,
 	'+': INC,
@@ -41,7 +41,7 @@ func Tokenize(content []rune) TokenList {
 	var col = 1
 
 	for _, char := range content {
-		var typ, exist = charToken[char]
+		var typ, exist = CharToken[char]
 
 		if exist {
 			var token = Token{

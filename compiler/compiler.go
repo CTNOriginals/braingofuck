@@ -13,8 +13,6 @@ var stdout []Cell
 func Compile(tokens tokenizer.TokenList, size int) {
 	ram = CreateRam(size)
 	stack = CreateStack()
-	stdout = make([]Cell, 0)
-
 	for cursor := 0; cursor < len(tokens); cursor++ {
 		var token = tokens[cursor]
 
@@ -29,9 +27,7 @@ func Compile(tokens tokenizer.TokenList, size int) {
 		switch token.Typ {
 		case tokenizer.ADV:
 			ADV()
-		case tokenizer.BAC:
 			BAC()
-		case tokenizer.INC:
 			INC()
 		case tokenizer.DEC:
 			DEC()
@@ -49,19 +45,14 @@ func Compile(tokens tokenizer.TokenList, size int) {
 	}
 
 	println("\n-- OUT --")
-	println(string(stdout))
 	fmt.Printf("%v\n", stdout)
 }
 
 func ADV() {
-	ram.Advance()
-}
 func BAC() {
 	ram.Backup()
 }
 func INC() {
-	ram.Inc()
-}
 func DEC() {
 	ram.Dec()
 }
