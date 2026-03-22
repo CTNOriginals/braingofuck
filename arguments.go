@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	ctnfile "github.com/CTNOriginals/CTNGoUtils/v2/file"
 	"github.com/CTNOriginals/ctngoargs"
@@ -112,15 +111,6 @@ var fakeargs ctngoargs.ArgDefinitionList
 
 func parseArgs() {
 	var args = os.Args
-
-	if len(args) == 1 {
-		return
-	}
-
-	if strings.ContainsAny(args[1], "><+-.,[]") {
-		brainfuck = []rune(args[1])
-	}
-
 	fakeargs = arguments
 	ctngoargs.ParseArgs(arguments, args)
 }
