@@ -22,58 +22,30 @@ func Inputpret(tokens tokenizer.TokenList, size int, input []rune) {
 
 		switch token.Typ {
 		case tokenizer.ADV:
-			ADV()
+			ram.Advance()
 		case tokenizer.BAC:
-			BAC()
+			ram.Backup()
 		case tokenizer.INC:
-			INC()
+			ram.Inc()
 		case tokenizer.DEC:
-			DEC()
+			ram.Dec()
 		case tokenizer.INP:
-			INP(input)
+			ram.Set(stdin.Read())
 		case tokenizer.OUT:
-			OUT()
+			stdout = append(stdout, *ram.Get())
 		case tokenizer.BEG:
-			BEG(cursor)
+			stack.Push(cursor)
 		case tokenizer.END:
-			cursor = END(cursor)
+			if *ram.Get() == 0 {
+				stack.Pop()
+				break
+			}
+
+			cursor = stack.Peek()
 		}
 	}
 
 	println("\n-- OUT --")
 	println(string(stdout))
 	fmt.Printf("%v\n", stdout)
-}
-
-func ADV() {
-	ram.Advance()
-}
-func BAC() {
-	ram.Backup()
-}
-func INC() {
-	ram.Inc()
-}
-func DEC() {
-	ram.Dec()
-}
-func INP(input []rune) {
-	ram.Set(stdin.Read())
-}
-func OUT() {
-	stdout = append(stdout, *ram.Get())
-}
-func BEG(index int) {
-	stack.Push(index)
-}
-func END(index int) int {
-	var val = ram.Get()
-
-	if *val != 0 {
-		return stack.Peek()
-	}
-
-	stack.Pop()
-
-	return index
 }
