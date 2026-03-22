@@ -8,14 +8,14 @@ import (
 
 var ram *Ram
 var stack *Stack
+var stdin *Input
 var stdout []Cell
-var cursor int
 
 func Inputpret(tokens tokenizer.TokenList, size int, input []rune) {
 	ram = CreateRam(size)
 	stack = CreateStack()
 	stdout = make([]Cell, 0)
-	cursor = 0
+	stdin = CreateInput(input)
 
 	for cursor := 0; cursor < len(tokens); cursor++ {
 		var token = tokens[cursor]
@@ -58,14 +58,7 @@ func DEC() {
 	ram.Dec()
 }
 func INP(input []rune) {
-	var val rune = 0
-
-	if cursor < len(input) {
-		val = input[cursor]
-	}
-
-	ram.Set(val)
-	cursor += 1
+	ram.Set(stdin.Read())
 }
 func OUT() {
 	stdout = append(stdout, *ram.Get())
