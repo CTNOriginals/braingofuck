@@ -20,8 +20,11 @@ func CreateRam(size int) *Ram {
 	}
 }
 
-func (this Ram) Value() *Cell {
+func (this Ram) Get() *Cell {
 	return this.Mem[this.Address]
+}
+func (this Ram) Set(val rune) {
+	this.Mem[this.Address].Set(val)
 }
 
 func (this *Ram) Advance() {

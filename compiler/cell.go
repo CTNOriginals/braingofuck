@@ -1,6 +1,10 @@
 package compiler
 
-type Cell byte
+type Cell rune
+
+func (this *Cell) Set(val rune) {
+	*this = Cell(val)
+}
 
 func (this *Cell) Inc() {
 	*this += 1

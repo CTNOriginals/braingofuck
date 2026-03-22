@@ -9,14 +9,18 @@ import (
 var ram *Ram
 var stack *Stack
 var stdout []Cell
+var cursor int
 
-func Compile(tokens tokenizer.TokenList, size int) {
+func Compile(tokens tokenizer.TokenList, size int, input []rune) {
 	ram = CreateRam(size)
 	stack = CreateStack()
+	stdout = make([]Cell, 0)
+	cursor = 0
+
 	for cursor := 0; cursor < len(tokens); cursor++ {
 		var token = tokens[cursor]
 
-		if token.Col == 1 {
+		if token.Typ == tokenizer.OUT {
 			fmt.Printf("-- %d:%d (%d) --\n", token.Line, token.Col, cursor)
 			for adr := range 3 {
 				fmt.Printf("%d: %d\n", adr, *ram.Mem[adr])
@@ -27,55 +31,64 @@ func Compile(tokens tokenizer.TokenList, size int) {
 		switch token.Typ {
 		case tokenizer.ADV:
 			ADV()
+		case tokenizer.BAC:
 			BAC()
+		case tokenizer.INC:
 			INC()
 		case tokenizer.DEC:
 			DEC()
 		case tokenizer.INP:
-			INP()
+			INP(input)
 		case tokenizer.OUT:
 			OUT()
 		case tokenizer.BEG:
 			BEG(cursor)
 		case tokenizer.END:
-			var before = cursor
 			cursor = END(cursor)
-			fmt.Printf("%d > %d ", before, cursor)
 		}
 	}
 
 	println("\n-- OUT --")
+	println(string(stdout))
 	fmt.Printf("%v\n", stdout)
 }
 
 func ADV() {
+	ram.Advance()
+}
 func BAC() {
 	ram.Backup()
 }
 func INC() {
+	ram.Inc()
+}
 func DEC() {
 	ram.Dec()
 }
-func INP() {
-	// println("TODO: Compiler INP")
+func INP(input []rune) {
+	var val rune = 0
+
+	if cursor < len(input) {
+		val = input[cursor]
+	}
+
+	ram.Set(val)
+	cursor += 1
 }
 func OUT() {
-	stdout = append(stdout, *ram.Value())
+	stdout = append(stdout, *ram.Get())
 }
 func BEG(index int) {
 	stack.Push(index)
-	fmt.Printf("Push: %d (%v)\n", index, *stack)
 }
 func END(index int) int {
-	var val = ram.Value()
-
-	fmt.Printf(" val:%d ", *val)
+	var val = ram.Get()
 
 	if *val != 0 {
 		return stack.Peek()
 	}
 
-	fmt.Printf("\ni:%d pop:%d (%v)\n", index, stack.Pop(), *stack)
+	stack.Pop()
 
 	return index
 }
