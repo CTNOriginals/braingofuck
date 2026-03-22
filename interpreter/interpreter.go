@@ -6,46 +6,38 @@ import (
 	"github.com/CTNOriginals/braingofuck/tokenizer"
 )
 
-var ram *Ram
-var stack *Stack
-var stdin *Input
-var stdout []Cell
-
 func Inputpret(tokens tokenizer.TokenList, size int, input []rune) {
-	ram = CreateRam(size)
-	stack = CreateStack()
-	stdout = make([]Cell, 0)
-	stdin = CreateInput(input)
+	var process = CreateProcess(size, input)
 
 	for cursor := 0; cursor < len(tokens); cursor++ {
 		var token = tokens[cursor]
 
 		switch token.Typ {
 		case tokenizer.ADV:
-			ram.Advance()
+			process.Ram.Advance()
 		case tokenizer.BAC:
-			ram.Backup()
+			process.Ram.Backup()
 		case tokenizer.INC:
-			ram.Inc()
+			process.Ram.Inc()
 		case tokenizer.DEC:
-			ram.Dec()
+			process.Ram.Dec()
 		case tokenizer.INP:
-			ram.Set(stdin.Read())
+			process.Ram.Set(process.Stdin.Read())
 		case tokenizer.OUT:
-			stdout = append(stdout, *ram.Get())
+			process.Stdout = append(process.Stdout, *process.Ram.Get())
 		case tokenizer.BEG:
-			stack.Push(cursor)
+			process.Stack.Push(cursor)
 		case tokenizer.END:
-			if *ram.Get() == 0 {
-				stack.Pop()
+			if *process.Ram.Get() == 0 {
+				process.Stack.Pop()
 				break
 			}
 
-			cursor = stack.Peek()
+			cursor = process.Stack.Peek()
 		}
 	}
 
 	println("\n-- OUT --")
-	println(string(stdout))
-	fmt.Printf("%v\n", stdout)
+	println(string(process.Stdout))
+	fmt.Printf("%v\n", process.Stdout)
 }
