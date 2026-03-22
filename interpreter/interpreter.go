@@ -1,4 +1,4 @@
-package compiler
+package interpreter
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ var stack *Stack
 var stdout []Cell
 var cursor int
 
-func Compile(tokens tokenizer.TokenList, size int, input []rune) {
+func Inputpret(tokens tokenizer.TokenList, size int, input []rune) {
 	ram = CreateRam(size)
 	stack = CreateStack()
 	stdout = make([]Cell, 0)
@@ -19,14 +19,6 @@ func Compile(tokens tokenizer.TokenList, size int, input []rune) {
 
 	for cursor := 0; cursor < len(tokens); cursor++ {
 		var token = tokens[cursor]
-
-		if token.Typ == tokenizer.OUT {
-			fmt.Printf("-- %d:%d (%d) --\n", token.Line, token.Col, cursor)
-			for adr := range 3 {
-				fmt.Printf("%d: %d\n", adr, *ram.Mem[adr])
-			}
-			fmt.Printf("Stack: %v\n", *stack)
-		}
 
 		switch token.Typ {
 		case tokenizer.ADV:

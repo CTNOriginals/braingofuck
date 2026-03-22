@@ -1,4 +1,4 @@
-package compiler
+package interpreter
 
 type Cell rune
 
