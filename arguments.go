@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	ctnfile "github.com/CTNOriginals/CTNGoUtils/v2/file"
 	"github.com/CTNOriginals/ctngoargs"
@@ -103,6 +104,33 @@ var arguments = ctngoargs.ArgDefinitionList{
 			}
 
 			input = []rune(inputs[0])
+		},
+	},
+	{Flags: []string{"--size"},
+		Description: []string{
+			"Set the max amount of cells that ram should have.",
+		},
+		Inputs: ctngoargs.ArgInputs{
+			{
+				Name: "amount",
+				Description: []string{
+					"The number of memory cells.",
+					"Default: 256",
+				},
+			},
+		},
+		Action: func(inputs []string) {
+			if len(inputs) == 0 {
+				log.Fatalf("'--size' is missing the following input: 'amount'")
+			}
+
+			var num, err = strconv.Atoi(inputs[0])
+
+			if err != nil {
+				log.Fatalf("'--size' unable to convert input string (%s) to int: %v", inputs[0], err)
+			}
+
+			size = num
 		},
 	},
 }

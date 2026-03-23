@@ -10,6 +10,7 @@ import (
 
 var brainfuck = []rune{}
 var input = []rune{}
+var size = 256
 
 func main() {
 	var startTime = time.Now()
@@ -22,5 +23,5 @@ func main() {
 
 	var tokens = tokenizer.Tokenize(brainfuck)
 
-	interpreter.Inputpret(tokens, 256, input)
+	interpreter.Inputpret(tokens, size, input)
 }
