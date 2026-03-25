@@ -16,7 +16,7 @@ proto:
 	wgo $(WGO_INCLUDE) go run . --file ./brainfuck/proto.bf --input 1A2B3C4D
 
 wasm:
-	@wgo $(WGO_INCLUDE) $(MAKE) asm
+	@wgo $(WGO_INCLUDE) $(wgoargs) $(MAKE) asm
 
 asm:
 	@cd brainfuck/compiled
@@ -26,13 +26,14 @@ asm:
 	-X gcc \
 	--debug \
 	-g \
+	-o ./bin/proto.obj \
 	proto.asm
 
-	gcc -o proto.exe proto.obj
+	gcc -o ./bin/proto.exe ./bin/proto.obj
 
 	echo 
 	echo -- $(shell date +"%H:%M:%S") --
-	./proto.exe
+	./bin/proto.exe
 
 asci:
 	go run "C:\Users\CTN\Documents\CTN\Programming\tmp\unicode-lister\main.go" "$(arg)"
