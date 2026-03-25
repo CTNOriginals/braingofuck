@@ -32,6 +32,7 @@ asm:
 	gcc -o ./bin/proto.exe ./bin/proto.obj
 
 	echo 
+	echo 
 	echo -- $(shell date +"%H:%M:%S") --
 	./bin/proto.exe
 
