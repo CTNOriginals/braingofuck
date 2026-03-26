@@ -69,18 +69,6 @@ main:
 		cmp [r12 + r13], 0
 	jne loop1
 
-	; overflow test
-	; mov rcx, [r14 + r15]
-	; mov [r12 + r13], rcx
-	; inc r15
-
-	; mov rcx, [stdwrite]
-	; lea rdx, [r12 + r13]
-	; mov r8,  1
-	; lea r9,  [written]
-	; mov qword [rsp + 32], 0
-	; call WriteFile
-
 exit:
 	add rsp, 56
     pop r15
