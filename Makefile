@@ -21,6 +21,10 @@ wasm:
 asm:
 	@cd brainfuck/compiled
 	
+	echo 
+	echo 
+	echo -- $(shell date +"%H:%M:%S") --
+	
 	nasm \
 	-f win64 \
 	-X gcc \
@@ -31,10 +35,8 @@ asm:
 
 	gcc -o ./bin/proto.exe ./bin/proto.obj
 
-	echo 
-	echo 
-	echo -- $(shell date +"%H:%M:%S") --
-	./bin/proto.exe
+	./bin/proto.exe > ./bin/stdout.log
+	cat ./bin/stdout.log
 
 asci:
 	go run "C:\Users\CTN\Documents\CTN\Programming\tmp\unicode-lister\main.go" "$(arg)"
