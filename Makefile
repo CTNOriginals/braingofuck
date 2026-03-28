@@ -10,7 +10,7 @@ run:
 	go run . "$(args)"
 
 wrun:
-	wgo $(WGO_INCLUDE) go run . $(args)
+	wgo $(WGO_INCLUDE) $(wgoargs) go run . $(args)
 
 proto:
 	wgo $(WGO_INCLUDE) go run . --file ./brainfuck/proto.bf --input 1A2B3C4D

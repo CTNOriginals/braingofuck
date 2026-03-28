@@ -84,6 +84,7 @@ var arguments = ctngoargs.ArgDefinitionList{
 			}
 
 			brainfuck = ctnfile.GetFileRunes(path)
+			filePath = path
 		},
 	},
 	{Flags: []string{"--input"},

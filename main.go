@@ -8,6 +8,7 @@ import (
 	"github.com/CTNOriginals/braingofuck/tokenizer"
 )
 
+var filePath string
 var brainfuck = []rune{}
 var input = []rune{}
 var size = 256

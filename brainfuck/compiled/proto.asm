@@ -12,7 +12,7 @@ section .bss
 	stdread		resq 1
 	stdwrite 	resq 1
 	written 	resb 4
-	input 		resb 64
+	input 		resb 256
 	input_len 	resq 1
 
 section .text
@@ -42,18 +42,32 @@ main:
 	; ,[.,]
 
 	;,
-	mov rcx, [stdread]
-	lea rdx, input
-	mov r8, 64
-	lea r9, input_len
-	mov qword [rsp + 32], 0
-	call ReadFile
+	; mov rcx, [stdread]
+	; lea rdx, input
+	; mov r8, 4
+	; lea r9, input_len
+	; mov qword [rsp + 32], 0
+	; call ReadFile
 
-	mov rcx, [r14 + r15]
-	mov [r12 + r13], rcx
-	inc r15
+	; mov rcx, [r14 + r15]
+	; mov [r12 + r13], rcx
+	; inc r15
 
-	;[.,]
+	; ;[.,]
+	; loop1:
+	; 	mov rcx, [stdwrite]
+	; 	lea rdx, [r12 + r13]
+	; 	mov r8,  1
+	; 	lea r9,  [written]
+	; 	mov qword [rsp + 32], 0
+	; 	call WriteFile
+
+	; 	mov rcx, [r14 + r15]
+	; 	mov [r12 + r13], rcx
+	; 	inc r15
+
+	; 	cmp [r12 + r13], 0
+	; jne loop1
 	loop1:
 		mov rcx, [stdwrite]
 		lea rdx, [r12 + r13]
@@ -62,14 +76,22 @@ main:
 		mov qword [rsp + 32], 0
 		call WriteFile
 
-		mov rcx, [r14 + r15]
-		mov [r12 + r13], rcx
-		inc r15
+		inc r13
+
+		cmp r13, 256
+		jl skip
+			xor r13, r13
+		skip:
+
+		inc [r12 + r13]
 
 		cmp [r12 + r13], 0
 	jne loop1
 
-	; overflow test
+
+	; ;overflow test
+	; mov [r12 + r13], 64
+
 	; mov rcx, [r14 + r15]
 	; mov [r12 + r13], rcx
 	; inc r15

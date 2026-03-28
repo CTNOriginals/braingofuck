@@ -12,7 +12,7 @@ section .bss
 	stdread		resq 1
 	stdwrite 	resq 1
 	written 	resb 4
-	input 		resb 64
+	input 		resb 256
 	input_len 	resq 1
 
 section .text
