@@ -37,7 +37,7 @@ func Inputpret(tokens tokenizer.TokenList, size int, input []rune) {
 		}
 	}
 
-	println("\n-- OUT --")
+	println("\n-- INTERPRETER OUTPUT --")
 	println(string(process.Stdout))
 	fmt.Printf("%v\n", process.Stdout)
 }

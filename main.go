@@ -27,6 +27,6 @@ func main() {
 
 	interpreter.Inputpret(tokens, size, input)
 
-	var dest = compiler.Compile(tokens, filePath)
-	println(dest)
+	compiler.Compile(tokens, filePath)
+
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/CTNOriginals/braingofuck/tokenizer"
 )
 
-func Compile(tokens tokenizer.TokenList, filePath string) string {
+func Compile(tokens tokenizer.TokenList, filePath string) {
 	var destFile = createDestFile(filePath)
 	var asm = Assembly{}
 	var stdin = false
@@ -68,7 +69,7 @@ func Compile(tokens tokenizer.TokenList, filePath string) string {
 		log.Fatalf("Error while writing to the destination file: %v", err)
 	}
 
-	return destFile.Name()
+	execute(destFile.Name())
 }
 
 func createDestFile(filePath string) *os.File {
@@ -93,4 +94,52 @@ func setLoopLabel(block []string, label string) []string {
 	}
 
 	return lines
+}
+
+func execute(destPath string) {
+	var pathData = ctnfile.ParseFilePath(destPath)
+	var binPath = fmt.Sprintf("%s/bin", pathData.Path)
+	var binFile = fmt.Sprintf("%s/%s", binPath, pathData.Name)
+
+	var exe = fmt.Sprintf("%s.exe", binFile)
+	var obj = fmt.Sprintf("%s.obj", binFile)
+
+	// fmt.Printf("destPath: \t%s\n", destPath)
+	// fmt.Printf("binPath: \t%s\n", binPath)
+	// fmt.Printf("binFile: \t%s\n", binFile)
+	// fmt.Printf("exe: \t\t%s\n", exe)
+	// fmt.Printf("obj: \t\t%s\n", obj)
+	// fmt.Printf("std: \t\t%s\n", std)
+
+	var nasm = []string{
+		"nasm",
+		"-f", "win64",
+		"-X", "gcc",
+		"--debug",
+		"-g",
+		"-o", obj,
+		destPath,
+	}
+	var gcc = []string{"gcc", "-o", exe, obj}
+	var run = []string{exe}
+
+	runcmd(nasm)
+	runcmd(gcc)
+	var stdout = runcmd(run)
+
+	fmt.Printf("-- COMPILER OUTPUT --\n%s\n%v\n", stdout, stdout)
+}
+
+func runcmd(args []string) []byte {
+	var cmd = exec.Command(args[0], args[1:]...)
+	var output, err = cmd.CombinedOutput()
+
+	// fmt.Println(cmd.String())
+
+	if err != nil {
+		log.Fatalf("Error while executing command '%s' %v: %v", args[0], args[1:], err)
+	}
+
+	// fmt.Printf("%s output: %v\n", args[0], output)
+	return output
 }
