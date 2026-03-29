@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/CTNOriginals/braingofuck/compiler"
 	"github.com/CTNOriginals/braingofuck/interpreter"
 	"github.com/CTNOriginals/braingofuck/tokenizer"
 )
@@ -25,4 +26,6 @@ func main() {
 	var tokens = tokenizer.Tokenize(brainfuck)
 
 	interpreter.Inputpret(tokens, size, input)
+
+	compiler.Compile(tokens, filePath)
 }

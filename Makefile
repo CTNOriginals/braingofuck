@@ -1,7 +1,7 @@
 MAKE := make --no-print-directory
 .SHELLFLAGS += -c
 
-WGO_INCLUDE := -file .go -file .bf -file Makefile -file .asm
+WGO_INCLUDE := -file .go -file .bf -file Makefile -file .asm -xfile .bf.asm
 
 .PHONY: run wrun proto nasm asm wasm test asci
 .ONESHELL:
